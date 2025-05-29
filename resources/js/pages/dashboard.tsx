@@ -71,7 +71,7 @@ export default function Dashboard({ cars }: { cars: Cars[] }) {
                             <div className="flex flex-col flex-wrap justify-center gap-2 p-4">
                                 <Link
                                     href={route('cars.edit', car.id)}
-                                    className="flex h-[5vh] w-full items-center gap-2 rounded-4xl border px-4 py-2 text-white hover:bg-blue-600"
+                                    className="flex h-[5vh] w-full items-center justify-center gap-2 rounded-4xl border border-white/15 px-4 py-2 text-blue-600 hover:bg-blue-600 hover:text-white"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export default function Dashboard({ cars }: { cars: Cars[] }) {
 
                                 <button
                                     onClick={(e) => deleteCar(e, car.id)}
-                                    className="flex h-[5vh] w-full items-center gap-2 rounded-4xl border px-4 py-2 text-white hover:bg-red-600"
+                                    className="flex h-[5vh] w-full items-center justify-center gap-2 rounded-4xl border border-white/15 px-4 py-2 text-red-600 hover:bg-red-600 hover:text-white"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
