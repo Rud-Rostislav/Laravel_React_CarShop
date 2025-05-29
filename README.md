@@ -1,3 +1,4 @@
+# Run  
 composer install  
 npm install  
 Copy env.example to .env  

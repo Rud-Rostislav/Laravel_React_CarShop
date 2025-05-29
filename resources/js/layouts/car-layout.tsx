@@ -45,7 +45,7 @@ export default function CarLayout({ children }: CarLayoutProps) {
                 </header>
             </div>
 
-            <main className="relative z-10 min-h-[95vh] overflow-auto p-4 pt-[7vh] max-[1000px]:px-2 max-[600px]:px-1">{children}</main>
+            <main className="relative z-10 min-h-[95vh] overflow-auto p-5 pt-[7vh]">{children}</main>
 
             <footer className="relative z-10 flex h-[5vh] items-center justify-center bg-black/25 px-6 text-center text-sm font-medium text-white shadow-lg backdrop-blur-sm transition-colors dark:bg-black/25">
                 AutoMria 2025

@@ -1,5 +1,5 @@
 import CarLayout from '@/layouts/car-layout';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 interface Model {
@@ -102,6 +102,7 @@ export default function Edit({ carName, car }: { carName: CarName[]; car: Car })
 
     return (
         <CarLayout>
+            <Head title={'Редагування ' + car.name + ' ' + car.model} />
             <form
                 onSubmit={updateCar}
                 className="mx-auto mt-10 flex w-[50vw] flex-col gap-4 rounded-xl bg-black/35 p-4 text-white max-[1000px]:w-[80vw] max-[500px]:w-[90vw]"

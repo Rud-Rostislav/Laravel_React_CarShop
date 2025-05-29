@@ -16,7 +16,8 @@ class CarController extends Controller
     public function index()
     {
         return Inertia::render('Car/Index', [
-            'cars' => Car::with('images')->get()
+            'cars' => Car::with('images')->get(),
+            'carName' => CarName::with('models')->get(),
         ]);
     }
 

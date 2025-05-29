@@ -1,4 +1,5 @@
 import CarLayout from '@/layouts/car-layout';
+import { Head } from '@inertiajs/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
@@ -35,14 +36,18 @@ export default function Index({ car }: { car: Car }) {
 
     return (
         <CarLayout>
-            <div className="m-4 grid grid-cols-3 gap-5 max-[1200px]:grid-cols-1">
+            <Head title={car.name + ' ' + car.model} />
+            <div className="m-4 mt-[7vh] grid grid-cols-[2fr_1fr] items-center gap-5 max-[1200px]:grid-cols-1">
                 {car.images?.[0]?.path && (
-                    <div className="col-span-2 flex flex-col">
-                        <div key={car.id} className="rounded-2xl bg-black/50 dark:bg-black/35 shadow-[0_5px_15px_rgba(0,0,0,0.7)] backdrop-blur-3xl">
+                    <div className="grid grid-cols-[1fr_auto_1fr] justify-items-center gap-5 max-[800px]:grid-cols-1">
+                        <button onClick={prevImage}>
+                            <ChevronLeft className="h-[10vh] w-[5vw] rounded-2xl bg-black/50 p-2 max-[1000px]:w-[10vw] max-[800px]:hidden max-[800px]:w-[15vw] max-[500px]:w-[25vw] dark:bg-black/35" />
+                        </button>
+                        <div key={car.id} className="rounded-2xl bg-black/50 shadow-[0_5px_15px_rgba(0,0,0,0.7)] backdrop-blur-3xl dark:bg-black/35">
                             <div className="overflow-hidden rounded-2xl">
                                 <>
                                     <img
-                                        className="h-[80vh] w-full object-cover max-[800px]:h-[50vh] max-[500px]:h-[40vh]"
+                                        className="h-[fit] max-h-[75vh] w-full object-cover"
                                         src={`/storage/${car.images[selectedImage].path}`}
                                         alt={car.name}
                                     />
@@ -50,24 +55,30 @@ export default function Index({ car }: { car: Car }) {
                             </div>
                         </div>
 
-                        <div className="mt-4 flex justify-center gap-5">
-                            <button onClick={prevImage}>
-                                <ChevronLeft className="h-[10vh] w-[7vw] rounded-2xl bg-black/50 dark:bg-black/35 p-2 max-[1000px]:w-[10vw] max-[800px]:w-[15vw] max-[500px]:w-[25vw]" />
+                        <div className="flex flex-wrap items-center justify-center gap-5">
+                            <button onClick={prevImage} className="hidden max-[800px]:block">
+                                <ChevronLeft className="h-[10vh] w-[5vw] rounded-2xl bg-black/50 p-2 max-[1000px]:w-[10vw] max-[800px]:w-[15vw] max-[500px]:w-[25vw] dark:bg-black/35" />
                             </button>
                             <button onClick={nextImage}>
-                                <ChevronRight className="h-[10vh] w-[7vw] rounded-2xl bg-black/50 dark:bg-black/35 p-2 max-[1000px]:w-[10vw] max-[800px]:w-[15vw] max-[500px]:w-[25vw]" />
+                                <ChevronRight className="h-[10vh] w-[5vw] rounded-2xl bg-black/50 p-2 max-[1000px]:w-[10vw] max-[800px]:w-[15vw] max-[500px]:w-[25vw] dark:bg-black/35" />
                             </button>
                         </div>
                     </div>
                 )}
 
                 <div className="flex flex-col gap-5">
-                    <div className="flex items-center justify-center gap-5 rounded-2xl bg-black/50 dark:bg-black/35 p-4 shadow-[0_5px_15px_rgba(0,0,0,0.7)] max-[600px]:flex-col">
+                    <div className="flex items-center justify-center gap-5 rounded-2xl bg-black/50 p-4 shadow-[0_5px_15px_rgba(0,0,0,0.7)] max-[600px]:flex-col dark:bg-black/35">
+                        <p className="text-2xl font-semibold text-white">{car.user.name}</p>
+                        <p className="text-2xl font-semibold text-white">{car.user.city}</p>
+                        <p className="text-2xl font-semibold text-white">{car.user.number}</p>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-5 rounded-2xl bg-black/50 p-4 shadow-[0_5px_15px_rgba(0,0,0,0.7)] max-[600px]:flex-col dark:bg-black/35">
                         <p className="text-2xl font-semibold text-white">{car.name}</p>
                         <p className="text-2xl font-semibold text-white">{car.model}</p>
                     </div>
 
-                    <div className="grid grid-cols-3 items-center justify-items-center rounded-2xl bg-black/50 dark:bg-black/35 p-4 shadow-[0_5px_15px_rgba(0,0,0,0.7)] max-[600px]:grid-cols-1">
+                    <div className="grid grid-cols-3 items-center justify-items-center rounded-2xl bg-black/50 p-4 shadow-[0_5px_15px_rgba(0,0,0,0.7)] max-[600px]:grid-cols-1 dark:bg-black/35">
                         <div className="flex items-center">
                             <p className="text-2xl text-white">Колір:</p>
                             <div
@@ -86,15 +97,9 @@ export default function Index({ car }: { car: Car }) {
                         <p className="text-2xl text-gray-300">Ціна: {car.price} $</p>
                     </div>
 
-                    <p className="rounded-2xl bg-black/50 dark:bg-black/35 p-4 text-center text-gray-300 shadow-[0_5px_15px_rgba(0,0,0,0.7)]">
+                    <p className="rounded-2xl bg-black/50 p-4 text-center text-gray-300 shadow-[0_5px_15px_rgba(0,0,0,0.7)] dark:bg-black/35">
                         {car.description}
                     </p>
-
-                    <div className="flex items-center justify-center gap-5 rounded-2xl bg-black/50 dark:bg-black/35 p-4 shadow-[0_5px_15px_rgba(0,0,0,0.7)] max-[600px]:flex-col">
-                        <p className="text-2xl font-semibold text-white">{car.user.name}</p>
-                        <p className="text-2xl font-semibold text-white">{car.user.city}</p>
-                        <p className="text-2xl font-semibold text-white">{car.user.number}</p>
-                    </div>
                 </div>
             </div>
         </CarLayout>
