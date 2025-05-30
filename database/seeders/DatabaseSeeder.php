@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Car;
-use App\Models\CarModel;
-use App\Models\CarName;
-use App\Models\Image;
+use App\Models\Car\Car;
+use App\Models\Car\CarModel;
+use App\Models\Car\CarName;
+use App\Models\Car\Image;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

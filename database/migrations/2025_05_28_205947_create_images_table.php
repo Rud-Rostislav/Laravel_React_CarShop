@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Car\Car;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('path');
-            $table->foreignIdFor(App\Models\Car::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Car::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

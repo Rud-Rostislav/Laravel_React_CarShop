@@ -26,6 +26,9 @@ const colors = [
     { value: 'brown', label: 'Коричневий' },
 ];
 
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: currentYear - 1975 + 1 }, (_, i) => currentYear - i);
+
 export default function Create({ carName }: { carName: CarName[] }) {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
@@ -117,13 +120,18 @@ export default function Create({ carName }: { carName: CarName[] }) {
                     ))}
                 </select>
 
-                <input
-                    type="number"
+                <select
                     className="transparent-button"
-                    placeholder="Рік"
                     value={data.year}
                     onChange={(e) => setData('year', e.target.value)}
-                />
+                >
+                    <option value="">Оберіть рік</option>
+                    {years.map((year) => (
+                        <option key={year} value={year}>
+                            {year}
+                        </option>
+                    ))}
+                </select>
 
                 <input
                     type="text"
@@ -142,11 +150,13 @@ export default function Create({ carName }: { carName: CarName[] }) {
                 />
 
                 <input className="transparent-button" type="file" multiple onChange={handleFileChange} />
-                <div className="mt-2 flex flex-wrap justify-center gap-2">
-                    {previews.map((src, index) => (
-                        <img key={index} src={src} alt={`preview-${index}`} className="h-[15vh] w-[10vw] rounded-2xl object-cover" />
-                    ))}
-                </div>
+                {data.images.length > 0 && (
+                    <div className="m-5 flex flex-wrap justify-center gap-2">
+                        {previews.map((src, index) => (
+                            <img key={index} src={src} alt={`preview-${index}`} className="h-[fit] w-[10vw] rounded-2xl object-cover" />
+                        ))}
+                    </div>
+                )}
 
                 <button className="transparent-button" type="submit" disabled={processing}>
                     Додати автомобіль

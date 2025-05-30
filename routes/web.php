@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Car\CarController;
-use App\Models\Car;
+use App\Models\Car\Car;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard', [
+        return Inertia::render('auth/dashboard', [
             'cars' => Car::with('images')->where('user_id', Auth::user()->id)->get(),
         ]);
     })->name('dashboard');

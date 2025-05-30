@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Car;
 
 use App\Http\Controllers\Controller;
-use App\Models\Car;
-use App\Models\CarName;
-use App\Models\User;
+use App\Models\Car\Car;
+use App\Models\Car\CarName;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class CarController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('Car/Index', [
             'cars' => Car::with('images')->get(),
@@ -21,14 +22,14 @@ class CarController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Car/Create', [
             'carName' => CarName::with('models')->get(),
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -64,14 +65,14 @@ class CarController extends Controller
     }
 
 
-    public function show(Car $car)
+    public function show(Car $car): Response
     {
         return Inertia::render('Car/Show', [
             'car' => $car->load('images', 'user')
         ]);
     }
 
-    public function edit(Car $car)
+    public function edit(Car $car): Response
     {
         $car->load('images');
         return Inertia::render('Car/Edit', [
@@ -80,7 +81,7 @@ class CarController extends Controller
         ]);
     }
 
-    public function update(Request $request, Car $car)
+    public function update(Request $request, Car $car): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -114,14 +115,15 @@ class CarController extends Controller
         return to_route('dashboard');
     }
 
-    public function destroy(Car $car)
+    public function destroy(Car $car): RedirectResponse
     {
-        $folder = 'Cars/Car_' . $car->id;
-        if (Storage::disk('public')->exists($folder)) {
-            Storage::disk('public')->deleteDirectory($folder);
+        if (Storage::disk('public')->exists('Cars/Car_' . $car->id)) {
+            Storage::disk('public')->deleteDirectory('Cars/Car_' . $car->id);
         }
+
         $car->images()->delete();
         $car->delete();
+
         return to_route('dashboard');
     }
 }

@@ -54,6 +54,9 @@ export default function Edit({ carName, car }: { carName: CarName[]; car: Car })
         images: [] as File[],
     });
 
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: currentYear - 1975 + 1 }, (_, i) => currentYear - i);
+
     // Завантаження моделей поточної марки
     useEffect(() => {
         const currentBrand = carName.find((b) => b.name === data.name);
@@ -136,13 +139,14 @@ export default function Edit({ carName, car }: { carName: CarName[]; car: Car })
                     ))}
                 </select>
 
-                <input
-                    type="number"
-                    className="transparent-button"
-                    placeholder="Рік"
-                    value={data.year}
-                    onChange={(e) => setData('year', e.target.value)}
-                />
+                <select className="transparent-button" value={data.year} onChange={(e) => setData('year', e.target.value)}>
+                    <option value="">Оберіть рік</option>
+                    {years.map((year) => (
+                        <option key={year} value={year}>
+                            {year}
+                        </option>
+                    ))}
+                </select>
 
                 <input
                     type="text"

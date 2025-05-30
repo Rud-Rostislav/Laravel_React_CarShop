@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Car\CarName;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +12,7 @@ return new class extends Migration
         Schema::create('car_models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(App\Models\CarName::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(CarName::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
