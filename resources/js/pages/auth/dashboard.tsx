@@ -40,12 +40,10 @@ export default function Dashboard({ cars }: { cars: Cars[] }) {
                 <Head title="Мої машини" />
                 <div className="m-4 grid grid-cols-3 gap-5 max-[1200px]:grid-cols-2 max-[600px]:grid-cols-1">
                     {cars.map((car) => (
-                        // Винесено поза Link, щоб не було вкладеного <a>
                         <div
                             key={car.id}
                             className="rounded-2xl bg-black/50 shadow-[0_5px_15px_rgba(0,0,0,0.7)] backdrop-blur-3xl transition-shadow duration-300 hover:shadow-[0_10px_15px_rgba(0,0,0,0.7)]"
                         >
-                            {/* Посилання на деталі машини */}
                             <Link href={route('cars.show', car.id)} className="block overflow-hidden rounded-t-2xl">
                                 {car.images?.[0]?.path && (
                                     <img

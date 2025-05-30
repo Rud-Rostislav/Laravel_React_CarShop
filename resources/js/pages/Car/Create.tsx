@@ -87,7 +87,7 @@ export default function Create({ carName }: { carName: CarName[] }) {
     return (
         <CarLayout>
             <Head title="Додати автомобіль" />
-            <div className='flex min-h-[86vh] flex-col items-center justify-center px-10'>
+            <div className="flex min-h-[86vh] flex-col items-center justify-center px-10">
                 <form
                     onSubmit={createCar}
                     className="mx-auto flex w-[50vw] flex-col gap-4 rounded-xl bg-black/35 p-4 text-white max-[1000px]:w-[80vw] max-[500px]:w-[90vw]"
