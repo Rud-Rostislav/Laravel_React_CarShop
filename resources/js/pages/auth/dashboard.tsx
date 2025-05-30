@@ -56,7 +56,7 @@ export default function Dashboard({ cars }: { cars: Cars[] }) {
                                 )}
 
                                 <div className="p-4">
-                                    <div className="mt-2 flex flex-wrap items-center justify-center gap-5">
+                                    <div className="mt-2 flex flex-col flex-wrap items-center justify-center gap-5">
                                         <p className="text-2xl font-semibold text-white">{car.name}</p>
                                         <p className="text-2xl font-semibold text-white">{car.model}</p>
                                     </div>
