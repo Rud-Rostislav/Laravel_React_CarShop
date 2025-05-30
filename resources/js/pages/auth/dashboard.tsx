@@ -38,7 +38,7 @@ export default function Dashboard({ cars }: { cars: Cars[] }) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <CarLayout>
                 <Head title="Мої машини" />
-                <div className="m-4 grid grid-cols-4 gap-5 max-[1200px]:grid-cols-3 max-[1000px]:grid-cols-2 max-[600px]:grid-cols-1">
+                <div className="m-4 grid grid-cols-3 gap-5 max-[1200px]:grid-cols-2 max-[600px]:grid-cols-1">
                     {cars.map((car) => (
                         // Винесено поза Link, щоб не було вкладеного <a>
                         <div
