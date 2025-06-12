@@ -19,6 +19,8 @@ Route::redirect('/', 'cars');
 Route::resource('cars', CarController::class)->except('index', 'show')->middleware('auth');
 Route::get('cars', [CarController::class, 'index'])->name('cars.index');
 Route::get('cars/{car}', [CarController::class, 'show'])->name('cars.show');
+Route::delete('{car}/{image}', [CarController::class, 'destroyImage'])->name('car.image.destroy');
+
 
 Route::fallback(function () {
     return redirect()->route('cars.index');

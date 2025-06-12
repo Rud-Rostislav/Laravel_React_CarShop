@@ -126,4 +126,15 @@ class CarController extends Controller
 
         return to_route('dashboard');
     }
+
+    public function destroyImage(Car $car, $imageId): RedirectResponse
+    {
+        $image = $car->images()->find($imageId);
+        if ($image) {
+            Storage::disk('public')->delete($image->path);
+            $image->delete();
+        }
+
+        return to_route('cars.edit', $car);
+    }
 }

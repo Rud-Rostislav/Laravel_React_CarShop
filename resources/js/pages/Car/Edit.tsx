@@ -22,6 +22,7 @@ interface Car {
     color: string;
     price: number;
     images: {
+        id: number;
         path: string;
     }[];
     path: string;
@@ -80,6 +81,25 @@ export default function Edit({ carName, car }: { carName: CarName[]; car: Car })
             setData('images', files);
             setPreviews(files.map((file) => URL.createObjectURL(file)));
         }
+    };
+
+    const deleteImage = (imageId: number) => {
+        if (!confirm('Видалити це фото?')) return;
+
+        router.delete(route('car.image.destroy', { car: car.id, image: imageId }), {
+            preserveScroll: true,
+        });
+    };
+
+    const removePreview = (index: number) => {
+        const updatedImages = [...data.images];
+        const updatedPreviews = [...previews];
+
+        updatedImages.splice(index, 1);
+        updatedPreviews.splice(index, 1);
+
+        setData('images', updatedImages);
+        setPreviews(updatedPreviews);
     };
 
     const updateCar = (e: React.FormEvent) => {
@@ -168,18 +188,33 @@ export default function Edit({ carName, car }: { carName: CarName[]; car: Car })
 
                     <input className="transparent-button" type="file" multiple onChange={handleFileChange} />
 
-                    <div className="mt-2 flex flex-wrap justify-center gap-2">
+                    <div className="mt-2 flex flex-wrap justify-center gap-4">
+                        {/* Існуючі фото з бази */}
                         {car.images.map((img, i) => (
-                            <img
-                                key={`old-${i}`}
-                                src={`/storage/${img.path}`}
-                                alt={`existing-${i}`}
-                                className="h-[fit] w-[10vw] rounded-2xl object-cover"
-                            />
+                            <div key={`old-${i}`} className="relative">
+                                <img src={`/storage/${img.path}`} alt={`existing-${i}`} className="h-[fit] w-[10vw] rounded-2xl object-cover" />
+                                <button
+                                    type="button"
+                                    onClick={() => deleteImage(img.id)} // ← тут передаємо ID
+                                    className="absolute top-1 right-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+                                >
+                                    ✕
+                                </button>
+                            </div>
                         ))}
 
+                        {/* Нові previews, які ще не на сервері */}
                         {previews.map((src, index) => (
-                            <img key={`new-${index}`} src={src} alt={`preview-${index}`} className="h-[fit] w-[10vw] rounded-2xl object-cover" />
+                            <div key={`new-${index}`} className="relative">
+                                <img src={src} alt={`preview-${index}`} className="h-[fit] w-[10vw] rounded-2xl object-cover" />
+                                <button
+                                    type="button"
+                                    onClick={() => removePreview(index)}
+                                    className="absolute top-1 right-1 rounded-full bg-yellow-500 px-2 py-1 text-xs text-black"
+                                >
+                                    ✕
+                                </button>
+                            </div>
                         ))}
                     </div>
 
