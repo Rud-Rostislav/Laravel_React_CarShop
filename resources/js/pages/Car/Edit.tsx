@@ -1,5 +1,5 @@
 import CarLayout from '@/layouts/car-layout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 interface Model {
@@ -92,13 +92,15 @@ export default function Edit({ carName, car }: { carName: CarName[]; car: Car })
         formData.append('price', data.price.toString());
         formData.append('description', data.description);
         formData.append('color', data.color);
+        formData.append('_method', 'put');
 
         data.images.forEach((image) => {
             formData.append('images[]', image);
         });
 
-        put(route('cars.update', car.id), formData, {
+        router.post(route('cars.update', car.id), formData, {
             forceFormData: true,
+            preserveScroll: true,
         });
     };
 
